@@ -19,14 +19,14 @@ public class PeopleController {
     }
 
     @GetMapping()
-    public String index(Model model) {
-        model.addAttribute("people", personDao.index());
+    public String findAll(Model model) {
+        model.addAttribute("people", personDao.findAll());
         return "people/index";
     }
 
     @GetMapping("/{id}")
-    public String show(@PathVariable("id") int id, Model model) {
-        model.addAttribute("person", personDao.show(id));
+    public String findById(@PathVariable("id") int id, Model model) {
+        model.addAttribute("person", personDao.findById(id));
         return "people/show";
     }
 
@@ -46,15 +46,15 @@ public class PeopleController {
 
     @GetMapping("/{id}/edit")
     public String edit(@PathVariable("id") int id, Model model) {
-        Person person = personDao.show(id);
+        Person person = personDao.findById(id);
         model.addAttribute("person", person);
         return "people/edit";
     }
 
     @PatchMapping("/{id}")
     public String update(@ModelAttribute("person") @Valid Person person, BindingResult bindingResult, @PathVariable("id") int id) {
-     //   if (bindingResult.hasErrors())
-      //      return "people/edit";
+        if (bindingResult.hasErrors())
+            return "people/edit";
 
         personDao.update(id, person);
         return "redirect:/people";
@@ -67,7 +67,7 @@ public class PeopleController {
     }
     @GetMapping("/found")
     public String find(Model model, @RequestParam("keyword") String keyword) {
-        model.addAttribute("people", personDao.index2(keyword));
+        model.addAttribute("people", personDao.findByKeyword(keyword));
             return "people/found";
     }
 

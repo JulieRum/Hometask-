@@ -17,6 +17,13 @@ public class PersonDao {
 
     private static Connection connection;
 
+    public PersonDao() {
+    }
+
+    public PersonDao(Connection connectionParam) {
+        connection = connectionParam;
+    }
+
     static {
         try {
             Class.forName("org.postgresql.Driver");
@@ -24,15 +31,16 @@ public class PersonDao {
             e.printStackTrace();
         }
 
-        try {
-            connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-        } catch (SQLException e) {
-            e.printStackTrace();
+        if (connection == null) {
+            try {
+                connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
-
     }
 
-    public List<Person> index() {
+    public List<Person> findAll() {
         List<Person> people = new ArrayList<>();
 
         try {
@@ -58,7 +66,7 @@ public class PersonDao {
         return people;
     }
 
-    public Person show(int id) {
+    public Person findById(int id) {
         Person person = null;
         try {
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM " +
@@ -115,7 +123,7 @@ public class PersonDao {
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
-           e.printStackTrace();
+            e.printStackTrace();
         }
     }
 
@@ -125,7 +133,7 @@ public class PersonDao {
             preparedStatement.setInt(1, id);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-           e.printStackTrace();
+            e.printStackTrace();
         }
 
     }
@@ -135,7 +143,7 @@ public class PersonDao {
 //        return false;
 //    }
 
-    public List<Person> index2(String keyword) {
+    public List<Person> findByKeyword(String keyword) {
         List<Person> people = new ArrayList<>();
 
         try {
