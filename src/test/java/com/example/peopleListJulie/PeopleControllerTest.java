@@ -146,7 +146,7 @@ class PeopleControllerTest {
         int id = 1;
         Person person = mock(Person.class);
         BindingResult bindingResult = mock(BindingResult.class);
-        doReturn(true).when(bindingResult).hasErrors();
+        doReturn(true).when(bindingResult).hasFieldErrors("email");
 
         //when
         String actualResult = controller.update(person, bindingResult, id);
