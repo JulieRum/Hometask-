@@ -1,4 +1,4 @@
-package com.example.hometask.models;
+package com.example.peopleListJulie.models;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;

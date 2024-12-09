@@ -1,11 +1,9 @@
-package com.example.hometask.dao;
+package com.example.peopleListJulie.dao;
 
-import com.example.hometask.models.Person;
+import com.example.peopleListJulie.models.Person;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.sql.*;

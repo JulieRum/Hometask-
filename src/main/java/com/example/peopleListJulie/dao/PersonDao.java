@@ -1,6 +1,6 @@
-package com.example.hometask.dao;
+package com.example.peopleListJulie.dao;
 
-import com.example.hometask.models.Person;
+import com.example.peopleListJulie.models.Person;
 import org.springframework.stereotype.Component;
 
 import java.sql.*;
@@ -137,11 +137,6 @@ public class PersonDao {
         }
 
     }
-
-//    public boolean find(String keyword) {
-//        if (keyword.equals(keyword)) return true;
-//        return false;
-//    }
 
     public List<Person> findByKeyword(String keyword) {
         List<Person> people = new ArrayList<>();

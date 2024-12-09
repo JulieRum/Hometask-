@@ -1,7 +1,7 @@
-package com.example.hometask;
+package com.example.peopleListJulie;
 
-import com.example.hometask.dao.PersonDao;
-import com.example.hometask.models.Person;
+import com.example.peopleListJulie.dao.PersonDao;
+import com.example.peopleListJulie.models.Person;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -37,8 +37,8 @@ public class PeopleController {
 
     @PostMapping()
     public String create(@ModelAttribute("person") @Valid Person person, BindingResult bindingResult) {
-       if (bindingResult.hasErrors())
-           return "people/new";
+        if (bindingResult.hasErrors())
+            return "people/new";
 
         personDao.save(person);
         return "redirect:/people";
@@ -53,9 +53,9 @@ public class PeopleController {
 
     @PatchMapping("/{id}")
     public String update(@ModelAttribute("person") @Valid Person person, BindingResult bindingResult, @PathVariable("id") int id) {
-        if (bindingResult.hasErrors())
-            return "people/edit";
 
+        if (bindingResult.hasFieldErrors("email"))
+            return "people/edit";
         personDao.update(id, person);
         return "redirect:/people";
     }
@@ -65,10 +65,11 @@ public class PeopleController {
         personDao.delete(id);
         return "redirect:/people";
     }
+
     @GetMapping("/found")
     public String find(Model model, @RequestParam("keyword") String keyword) {
         model.addAttribute("people", personDao.findByKeyword(keyword));
-            return "people/found";
+        return "people/found";
     }
 
 }
